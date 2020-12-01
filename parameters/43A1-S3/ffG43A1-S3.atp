@@ -1,0 +1,65 @@
+    O  15.99940 ;     carbonyl oxygen (C=O)
+   OM  15.99940 ;     carboxyl oxygen (CO-)
+   OA  15.99940 ;     hydroxyl, sugar or ester oxygen
+   OW  15.99940 ;     water oxygen
+    N  14.00670 ;     peptide nitrogen (N or NH)
+   NT  14.00670 ;     terminal nitrogen (NH2)
+   NL  14.00670 ;     terminal nitrogen (NH3)
+   NR  14.00670 ;     aromatic nitrogen
+   NZ  14.00670 ;     Arg NH (NH2)
+   NE  14.00670 ;     Arg NE (NH)
+    C  12.01100 ;     bare carbon
+  CH1  13.01900 ;     aliphatic or sugar CH-group (45A3)
+  CH2  14.02700 ;     aliphatic or sugar CH2-group (45A3)
+  CH3  15.03500 ;     aliphatic CH3-group (45A3)
+  CH4  16.04300 ;     methane
+  CR1  13.01900 ;     aromatic CH-group 
+   HC   1.00800 ;     hydrogen bound to carbon
+    H   1.00800 ;     hydrogen not bound to carbon
+  DUM   0.00000 ;     dummy atom, no idea what the mass should be. PT3-99
+    S  32.06000 ;     sulfur
+ CU1+  63.54600 ;     copper (charge 1+)
+ CU2+  63.54600 ;     copper (charge 2+)
+   FE  55.84700 ;     iron (heme)
+ ZN2+  65.37000 ;     zinc (charge 2+)
+ MG2+  24.30500 ;     magnesium (charge 2+)
+ CA2+  40.08000 ;     calcium (charge 2+)
+    P  30.97380 ;     phosphor
+   AR  39.94800 ;     argon
+    F  18.99840 ;     fluor (non-ionic)
+   CL  35.45300 ;     chlorine (non-ionic)
+   BR  79.90400 ;     bromine (non-ionic)
+ CMET  15.035   ;     CH3-group in methanol (solvent)
+ OWT3  15.9994  ;     TIP3P oxygen                   
+  NA+  22.9898  ;     NA (charge 1+)
+  CL-  35.45300 ;     chlorine (charge 1-)
+ CCHL  12.01100 ;     Carbon in chloroform (solvent) 
+CLCHL  35.45300 ;     Chloride in chloroform (solvent)    
+ HCHL  1.00800  ;     Hydrogen in chloroform (solvent)
+SDMSO  32.06000 ;     DMSO Sulphur (solvent)
+CDMSO  15.03500 ;     CH3-group in DMSO (solvent)
+ODMSO  15.99940 ;     DMSO Oxygen (solvent)
+ CCL4  12.01100 ;     Carbon in carbontetrachloride(solvent)
+CLCL4  35.45300 ;     Chloride in carbontetrachloride(solvent)
+ CH2r  14.027   ;     aliphatic rings CH2 (45A3)
+  CH0  12.011   ;     Tetrahedral aliphatic C (45A3)
+ MNH3   0       ;     Dummy mass in rigid tetraedrical NH3 group
+   MW   0       ;     Dummy mass in rigid tyrosine rings
+ CH0*  12.011   ;     SP3 bare carbon 
+ CH1*  13.01900 ;     Long-chain aliphatic CH-group (new SWC/Larry)
+ CH2*  14.02700 ;     Long-chain aliphatic CH2 (new SWC/Larry)
+ CH3*  15.03500 ;     Long-chain aliphatic CH3-group (new SWC/Larry)
+   C*  12.011   ;     SP2 bare carbon (nonpolar), old designation : C0
+  CO*  12.011   ;     Carbonyl, ester (SP2) carbon; old designation: C0*
+ C*H1  13.01900 ;     unsaturated methine =CH group; old designation: CD1 
+ C*H2  14.02700 ;     unsaturated methylene =CH2 group; old designation: CD2
+CH1R5  13.01900 ;     CH1 group in 5-rings
+CH2R5  14.02700 ;     CH2 group in 5-rings
+CHR55  13.0197  ;     CH1 in fused 5-rings
+CHR56  13.01900 ;     CH1 in 5,6-rings
+CH1R6  13.01900 ;     CH1 group in 6-rings
+CH2R6  14.02700 ;     CH2 group in 6-rings
+C*HR6  13.01900 ;     unsat'd methine (=CH1) group in 6-rings; old desig: CD1R6
+   O*  15.99940 ;     carbonyl O, SWC/g96 -  for lipids
+  OM*  15.99940 ;     carboxyl O, SWC/g96 - for lipids
+   K+  39.0983  ;     K (charge 1+)
