@@ -115,8 +115,13 @@ def rotate_backbone(molecule=None, resi=1, bond='PSI', theta=0, steps=1):
     sideChain = []
     #print resi
     residue = molecule.residues[resi]
+    H = False
+    
+    
+    
+    
+    
     for atom_i in residue.atoms:
-        H = False
         if atom_i.name == 'CA':
             CA = atom_i
 
@@ -125,7 +130,7 @@ def rotate_backbone(molecule=None, resi=1, bond='PSI', theta=0, steps=1):
                                                             #|---amber---|
         elif atom_i.name in ['H']:#, 'HT1', 'HT2', 'HT3', 'HN','H1','H2','H3']:
             H = atom_i
-
+            #print (H)
         elif atom_i.name == 'C':
             C = atom_i
 
@@ -149,6 +154,7 @@ def rotate_backbone(molecule=None, resi=1, bond='PSI', theta=0, steps=1):
         axis = C.pos
         window = range(0, CA.id + 1)
         window = list(window)
+        
         for i in sideChain:
             window.append(i)
         
@@ -173,10 +179,11 @@ def rotate_backbone(molecule=None, resi=1, bond='PSI', theta=0, steps=1):
 
         axis = N.pos     # CA - C alphal
         window = range(0, N.id + 1)
-        try:
+        window = list(window)
+        
+        if H:
+            #print('PHI', H)
             window.append(H.id)
-        except:
-            pass
 
         for i in range(0, steps):
             rotate_Calpha_dihedral(molecule, axis, theta, window=window)

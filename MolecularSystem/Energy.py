@@ -1,5 +1,5 @@
 import math 
-from parameters.RAMA.rama_left_ALL import RAMA
+#from parameters.RAMA.rama_left_ALL import RAMA
 
 class Energy:
     """ Class doc """
@@ -9,7 +9,8 @@ class Energy:
     
         pass
 
-            
+
+
     def get_phi_psi_energy (self):
         """ Function doc 
         
@@ -116,12 +117,21 @@ class Energy:
             print ('TOTAL ENERGY = ', total_energy)
             print (energy_list)
         
-        #print total_energy
+        #print (total_energy)
         return total_energy        
+    
+    
+    def get_distance_restraint_energy (self, log = False):
+        """ Function doc """
+        pass
+    
     
     def energy (self):
         """ Function doc """
-        e_rama         = self.get_phi_psi_energy ()
+        
+        self.get_phi_psi_list()
+        e_rama = 0
+        #e_rama         = self.get_phi_psi_energy ()
         e_ss_restraint = self.get_secondary_structure_restraint_energy()
     
         

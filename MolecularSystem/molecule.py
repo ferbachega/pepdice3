@@ -590,23 +590,40 @@ class Molecule(#Atom       ,
     def import_coordinates_to_system(self, coordinates):
         """ Function doc """
         # for key in self.atoms.keys():
-        for residue_i in self.residues:
-            for atom_i in residue_i.atoms:
-                index_i = atom_i.id
-                atom_i.pos[0] = coordinates[index_i - 1][0]
-                atom_i.pos[1] = coordinates[index_i - 1][1]
-                atom_i.pos[2] = coordinates[index_i - 1][2]
+
+        counter = 0
+        for  atom in self.atoms:
+            atom.pos[0] = coordinates[counter][0]
+            atom.pos[1] = coordinates[counter][1]
+            atom.pos[2] = coordinates[counter][2]
+            counter += 1
+            
+            
+        
+        #for residue_i in self.residues:
+        #    for atom_i in residue_i.atoms:
+        #        index_i = atom_i.id
+        #        atom_i.pos[0] = coordinates[index_i - 1][0]
+        #        atom_i.pos[1] = coordinates[index_i - 1][1]
+        #        atom_i.pos[2] = coordinates[index_i - 1][2]
 
     def get_coordinates_from_system(self):  # molecule = None):
         """ Function doc """
         # pprint(ff.biotypes)
+        
         initial_coordinates = []
-        for residue_i in self.residues:
-            for atom_i in residue_i.atoms:
-                initial_coordinates.append(
-                    [atom_i.pos[0], atom_i.pos[1], atom_i.pos[2]])
+        for atom in self.atoms:
+            initial_coordinates.append([atom.pos[0], atom.pos[1], atom.pos[2]])
 
         return initial_coordinates
+        
+        #initial_coordinates = []
+        #for residue_i in self.residues:
+        #    for atom_i in residue_i.atoms:
+        #        initial_coordinates.append(
+        #            [atom_i.pos[0], atom_i.pos[1], atom_i.pos[2]])
+		#
+        #return initial_coordinates
         
 
 
