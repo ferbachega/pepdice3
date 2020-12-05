@@ -1,37 +1,90 @@
 
 #from pepBabel.PDBfiles import *
-from MolecularSystem.Fragment import *
 from MolecularSystem.molecule import *
+from MolecularSystem.Fragment import get_fragment
+
 from pepCore.Geometry import *
+from pepCore.MonteCarlo import *
+
 from pepBabel.XYZFiles import *
+from pprint import pprint
+import random as random
 
-from pepCore.MonteCarlo import monte_carlo_cycle
-
-#system =  Molecule(pdb = '/home/fernando/Downloads/predicted_structure.pdb')
-system     =  Molecule(pdb = '/home/fernando/programs/pepdice3/examples/1zdd.pdb')
-
-
-
-#pdbs =  ['/home/fernando/programs/pepdice3/examples/1zdd.pdb']
-#system  = build_fragment_library_from_pdbs (
-#                                            molecule             = system ,
-#                                            frag_size            = 7      ,
-#                                            number_of_fragments  = 100    ,
-#                                            pdblist              = pdbs   ,
-#                                            )
+#system     =  Molecule(pdb = '/home/fernando/programs/pepdice3/examples/1zdd.pdb')
+system     =  Molecule(pdb = '/home/fernando/programs/pepdice3/examples/1zdd_no_side.pdb')
 
 
 
 
-for residue in system.residues:
-    residue.set_phi  (angle = 180)
-    residue.set_psi  (angle = 180)
-    residue.set_omega(angle = 180)
-    
-save_XYZ_to_file(system , 'xyz_out_1zdd.xyz')
 
 
-pprint(system.fragments)
+
+"""
+construindo um biblioteca de fragmentos com base na estrutura de 1zdd
+
+FNMQCQRRFYEALHDPNLNEEQRNAKIKSIRDDCX
+XXXXX------------------------------
+-XXXXX-----------------------------
+--XXXXX----------------------------
+---XXXXX---------------------------
+----XXXXX--------------------------
+.
+.
+.
+"""
+
+fragments = []
+for i in range (0, len(system.residues) -5):
+	fragments.append([])
+
+for i in range (0, len(system.residues) -5):
+	fragment = get_fragment(molecule = system, size = 5, position = i )
+	fragments[i].append(fragment)
+
+	
+	
+	#variant = {}
+	#for index in fragment.keys():
+	#	
+	#	phi   = fragment[index]["PHI"]
+	#	if  phi:
+	#		phi   =+ random.random()
+	#	
+	#	psi   = fragment[index]["PSI"]
+	#	if psi:
+	#		psi   = random.random()
+	#	
+	#	
+	#	omega = fragment[index]["OMEGA"]
+	#	name  = fragment[index]["NAME"]
+	#	variant[index] ={
+	#	                 'NAME'  : name  ,
+	#	                 'PHI'   : phi   , 
+	#	                 'PSI'   : psi   ,
+	#	                 'OMEGA' : omega ,
+	#	                 }
+	#
+	#fragments[i].append(variant)
+
+system.fragments = fragments
+
+
+
+
+
+
+
+for residue  in system.residues:
+	residue.set_phi(180)
+	residue.set_psi(180)
+	residue.set_omega(180)
+
+	#print(system.residues[5].psi ,psi+i, system.energy())
+
+
+
+
+
 
 
 
@@ -54,7 +107,7 @@ monte_carlo_cycle (molecule            = system                   ,
 				   					
 				   
 				   #simulated_annealing = None                   , # exp, linear
-				   cycle_size          = 10000                     ,
+				   cycle_size          = 1000                     ,
 				   #number_of_cycles    = 10                     ,
 				   
 				   log_frequence       = 10                     ,

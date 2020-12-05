@@ -378,7 +378,7 @@ class Molecule(#Atom       ,
         self.chains   = []
 
         self.load_PDB_to_system(filename = pdb)
-        
+        self.fragments = []
 
         #self.top      = None
         #self.psf      = None
@@ -459,7 +459,7 @@ class Molecule(#Atom       ,
           'VAL': 'V'
          }
 
-    
+        
     def get_phi_psi_list (self):
         """ Function doc """
         phi_psi_list = []

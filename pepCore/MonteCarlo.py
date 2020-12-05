@@ -16,29 +16,52 @@ def insert_fragment (molecule = None, fragment = None, sidechain = False):
     """ Function doc """
     if fragment is None:
         return
-    for key in fragment:
+    else:
+    #for key in fragment.keys():
         #PSI = fragment[key]['PSI']
         #PHI = fragment[key]['PHI']
-        for bond in ['PSI','PHI']:
-            #print  key, bond,  fragment[key][bond]
-            set_phi_psi_dihedral (molecule = molecule,
-                                      resi = key     ,
-                                      bond = bond    ,
-                                      angle = fragment[key][bond])
+        print (fragment.keys(), fragment)
+        
+        for residue_index in fragment.keys():
+            
+            index = residue_index
+            phi   = fragment[residue_index]["PHI"]
+            psi   = fragment[residue_index]["PSI"]
+            omega = fragment[residue_index]["OMEGA"]
+            #print ()
+            #print ("\n\n", index, phi,psi,omega,"\n\n")
+            
+            molecule.residues[index].set_phi  (angle = phi  )
+            molecule.residues[index].set_psi  (angle = psi  )
+            molecule.residues[index].set_omega(angle = omega)
+        
+        
+        #for bond in ['PSI','PHI']:
+        #    #print  key, bond,  fragment[key][bond]
+        #    molecule.set_phi
+        #    
+        #    
+        #    
+        #    set_phi_psi_dihedral (molecule = molecule,
+        #                              resi = key     ,
+        #                              bond = bond    ,
+        #                              angle = fragment[key][bond])
 
-
-        if sidechain:
-            #try:
-            for bond in ['CHI1','CHI2','CHI3','CHI4','CHI5']:
-                #try:
-                if bond in fragment[key]:
-                    try:
-                        set_chi_dihedral (molecule  = molecule,
-                                              resi  = key,
-                                              bond  = bond,
-                                              angle = fragment[key][bond])
-                    except:
-                        pass
+        
+        #if sidechain:
+        #    #try:
+        #    for bond in ['CHI1','CHI2','CHI3','CHI4','CHI5']:
+        #        #try:
+        #        if bond in fragment[key]:
+        #            try:
+        #                set_chi_dihedral (molecule  = molecule,
+        #                                      resi  = key,
+        #                                      bond  = bond,
+        #                                      angle = fragment[key][bond])
+        #            except:
+        #                pass
+        
+        
                 #except:
                 #    print 'fail', bond
             #except KeyError as error:
@@ -282,6 +305,7 @@ def monte_carlo_cycle (molecule            = None                   ,
                     
                 # (4) sorteia um fragmento para a posicao selecionada 
                 fragment_index = random.randint(0, len(molecule.fragments[resi])-1)
+                #print ()
                 fragment       = molecule.fragments[resi][fragment_index]
 
 
