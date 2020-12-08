@@ -23,7 +23,7 @@
 #  
 
 from pprint import pprint
-from pepBabel.PDBfiles import *
+from pepBabel.PDBFiles import *
 from pepCore.Geometry import *
 from MolecularSystem.Energy import Energy
 
@@ -369,6 +369,8 @@ class Molecule(#Atom       ,
                  id   = 0,
                  name = 'protein',
                  pdb  = None,
+                 rw_path = None,
+                 
                  ):
                      
         self.id       = id
@@ -458,7 +460,16 @@ class Molecule(#Atom       ,
           'TYR': 'Y',
           'VAL': 'V'
          }
-
+        pass
+        
+        if rw_path == None:
+            self.RW_PATH = 'calRW'   
+        else:
+            self.RW_PATH = rw_path
+        
+        self.current_energy = 0
+        
+        
         
     def get_phi_psi_list (self):
         """ Function doc """

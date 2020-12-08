@@ -10,7 +10,7 @@ def save_XYZ_to_file(molecule, filename):
                                            "\t".join([str(round(c, 2)) for c in atom_i.pos])))
                 n = n + 1
 
-        output_file.write(str(n) + "\n\n")
+        output_file.write(str(n) + "\nEnergy = {:8.3f}\n".format(molecule.current_energy))
         output_file.write(text)
 
 

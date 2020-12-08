@@ -1,15 +1,55 @@
 import math 
+from pepBabel.PDBFiles import *
+
 #from parameters.RAMA.rama_left_ALL import RAMA
+import os
 
 class Energy:
     """ Class doc """
     
     def __init__ (self):
         """ Class initialiser """
-    
         pass
 
 
+    def read_calRW_logfile (self, logfile):
+        """ Function doc """
+        logfile = open(logfile, 'r')
+        energy = None
+        for line in logfile:
+            line2 =  line.split()
+            if line2[0] == "RW":
+                energy = line2[-2]
+            else:
+                pass
+        
+        return energy
+                
+            
+
+
+    def get_calRW_energy (self, theard_number = 0):
+        """ Function doc """
+        current_directory =  os.getcwd()
+        
+
+        os.chdir(self.RW_PATH)
+        tmp_PDB = "TMP/" + str(theard_number) + "tmp.pdb"
+        tmp_log = "TMP/" + str(theard_number) + "tmp.log"
+        
+        
+        
+        write_PDB_file(self, tmp_PDB)
+
+        cmd  = './calRW ' + tmp_PDB + " > " + tmp_log
+        os.system(cmd)
+        energy = self.read_calRW_logfile(tmp_log)
+        
+        os.chdir(current_directory)
+        
+        return float(energy)
+
+		
 
     def get_phi_psi_energy (self):
         """ Function doc 
@@ -128,15 +168,17 @@ class Energy:
     
     def energy (self):
         """ Function doc """
-        
+
         self.get_phi_psi_list()
         e_rama = 0
         #e_rama         = self.get_phi_psi_energy ()
         e_ss_restraint = self.get_secondary_structure_restraint_energy()
-    
-        
-        
-        return e_rama + e_ss_restraint
+
+        e_RW  = self.get_calRW_energy()
+
+        #print (e_rama + e_ss_restraint + e_RW)
+        self.current_energy = e_rama + e_ss_restraint + e_RW
+        return e_rama + e_ss_restraint + e_RW
         
         
     

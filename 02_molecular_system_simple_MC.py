@@ -31,7 +31,7 @@ monte_carlo_cycle (molecule            = system                  ,
 				   #gamma               = False                  ,
 				   
 				   
-				   Kb                  = 1                      , # 0.0083144621               ,
+				   Kb                  = 10                      , # 0.0083144621               ,
 				   angle_range         = 30                     ,
 				   fragment_rate       = 0.0                    , #between 0  and 1
 				   fragment_sidechain  = False                  ,
