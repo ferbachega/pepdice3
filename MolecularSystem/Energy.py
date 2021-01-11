@@ -160,10 +160,26 @@ class Energy:
         #print (total_energy)
         return total_energy        
     
+
+		
+    
     
     def get_distance_restraint_energy (self, log = False):
         """ Function doc """
         pass
+    
+    
+    
+    
+    def get_contact_map_energy (self, cmap ):
+        """ Function doc """
+
+        return 0
+    
+   
+    
+    
+    
     
     
     def energy (self):
@@ -174,11 +190,13 @@ class Energy:
         #e_rama         = self.get_phi_psi_energy ()
         e_ss_restraint = self.get_secondary_structure_restraint_energy()
 
+        e_contact_map  = self.get_contact_map_energy(None)
+
         e_RW  = self.get_calRW_energy()
 
         #print (e_rama + e_ss_restraint + e_RW)
-        self.current_energy = e_rama + e_ss_restraint + e_RW
-        return e_rama + e_ss_restraint + e_RW
+        self.current_energy = e_rama + e_ss_restraint + e_RW + e_contact_map
+        return e_rama + e_ss_restraint + e_RW + e_contact_map
         
         
     

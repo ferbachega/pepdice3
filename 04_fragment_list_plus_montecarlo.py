@@ -24,10 +24,26 @@ construindo um biblioteca de fragmentos com base na estrutura de 1zdd
 
 FNMQCQRRFYEALHDPNLNEEQRNAKIKSIRDDCX
 XXXXX------------------------------
+YYYYY------------------------------
 -XXXXX-----------------------------
 --XXXXX----------------------------
 ---XXXXX---------------------------
 ----XXXXX--------------------------
+
+
+fragmentos = [
+			 
+			 [] # FRAGMENTOS DA POSICAO 0 - 4
+			 
+			 [dict, dict, dict] ,
+		 
+			 []                 ,
+			 []                 ,
+			 []                 ,
+			 []                 ,
+
+             ]
+
 .
 .
 .
@@ -100,9 +116,9 @@ monte_carlo_cycle (molecule            = system                   ,
 				   
 				   Kb                  = 1                      , # 0.0083144621               ,
 				   angle_range         = 30                     ,
-				   fragment_rate       = 1.0                    , #between 0  and 1
+				   fragment_rate       = 0.1                    , #between 0  and 1
 				   fragment_sidechain  = False                  ,
-				   PhiPsi_rate         = 0.0                    ,
+				   PhiPsi_rate         = 1.0                    ,
 				   attempt_per_residue = 5                      ,
 				   					
 				   
@@ -111,6 +127,6 @@ monte_carlo_cycle (molecule            = system                   ,
 				   #number_of_cycles    = 10                     ,
 				   
 				   log_frequence       = 10                     ,
-				   trajectory          = 'MonteCarlo_trajectory',
+				   trajectory          = 'MonteCarlo_trajectory.xyz',
 				   pn                  = 1                      ,
 				   log                 = True                   ,)
