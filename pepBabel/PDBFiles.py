@@ -266,8 +266,18 @@ ATOM     27  NH1 ARG A   5      68.029  23.029  29.719  1.00 38.75           N1+
             at_resn    = line[17:20].strip()
             at_ch      = line[21]             
             at_symbol  = line[76:78]
-            at_occup   = float(line[54:60])   #occupancy
-            at_bfactor = float(line[60:66])
+                
+            try:
+                at_occup   = float(line[54:60])   #occupancy
+            except:
+                at_occup   = 0.00
+
+            try:
+                at_bfactor = float(line[60:66])
+            except:
+                at_bfactor = 0.00
+
+            
             at_charge  = 0.0
             
             cov_rad  = None#at.get_cov_rad (at_name)

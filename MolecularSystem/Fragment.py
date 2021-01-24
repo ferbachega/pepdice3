@@ -35,7 +35,74 @@ from random import randint                                                      
 import pprint
 import random
 
-def get_fragment (molecule = None, size = 5, position = 0):
+
+
+
+
+def get_fragment (molecule = None, size = 5, template_index = 0, target_index = 0):
+	""" Function doc 
+	
+	size  =  tamanho do fragmento
+	position = posicao no templete
+	p 
+	
+	exemplo:
+	
+			{28: {'NAME': 'SER',
+				  'OMEGA': 176.69562980228915,
+				  'PHI': -62.58022505097199,
+				  'PSI': -46.6855741024863},
+			 29: {'NAME': 'ILE',
+				  'OMEGA': -178.857583048646,
+				  'PHI': -59.01950985556908,
+				  'PSI': -45.0398498329183},
+			 30: {'NAME': 'ARG',
+				  'OMEGA': 175.1170640814518,
+				  'PHI': -66.41623677766724,
+				  'PSI': -36.80423785619314},
+			 31: {'NAME': 'ASP',
+				  'OMEGA': 178.46844723771633,
+				  'PHI': -62.660559807850994,
+				  'PSI': -48.63625711453113},
+			 32: {'NAME': 'ASP',
+				  'OMEGA': -174.8896489391921,
+				  'PHI': -60.42043299884154,
+				  'PSI': -52.66750421237527}}
+	"""
+
+	fragment  = {}
+	
+	for residue in molecule.residues[template_index:template_index+size]:
+		
+		name   = residue.name
+		phi    = residue.get_phi()
+		psi    = residue.get_psi()
+		omega  = residue.get_omega()
+		index  = residue.id
+		target_index = target_index
+		#print("newindex",newindex)
+		fragment[target_index] = {
+		                 'NAME'  : name  ,
+		                 'PHI'   : phi   , 
+		                 'PSI'   : psi   ,
+		                 'OMEGA' : omega ,
+		                 }
+		target_index = int(target_index) + 1
+	return fragment
+
+
+
+
+
+
+
+
+
+
+
+
+
+def get_fragment_old (molecule = None, size = 5, position = 0):
 	""" Function doc 
 	
 	exemplo:

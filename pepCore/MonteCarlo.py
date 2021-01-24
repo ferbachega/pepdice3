@@ -24,13 +24,18 @@ def insert_fragment (molecule = None, fragment = None, sidechain = False):
         
         for residue_index in fragment.keys():
             
-            index = residue_index
+            index = int(residue_index)
             phi   = fragment[residue_index]["PHI"]
             psi   = fragment[residue_index]["PSI"]
             omega = fragment[residue_index]["OMEGA"]
             #print ()
             #print ("\n\n", index, phi,psi,omega,"\n\n")
             
+            #print ('\n\n\fragment')
+            #print (fragment)
+            #print ( molecule.residues[index],  index, phi, psi, omega)
+            #print ('\n\n\ ')
+
             molecule.residues[index].set_phi  (angle = phi  )
             molecule.residues[index].set_psi  (angle = psi  )
             molecule.residues[index].set_omega(angle = omega)
