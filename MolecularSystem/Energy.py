@@ -1,6 +1,6 @@
 import math 
 from pepBabel.PDBFiles import *
-
+from pepCore.Geometry import distance_ab
 #from parameters.RAMA.rama_left_ALL import RAMA
 import os
 
@@ -171,10 +171,53 @@ class Energy:
     
     
     
-    def get_contact_map_energy (self, cmap ):
+    def get_contact_map_energy (self, cmap =  None):
         """ Function doc """
+		
+        energy_short  = 0
+        energy_medium = 0
+        energy_long   = 0  
+        for contact in self.contacts:
+        
+            residue1 =contact.residue1
+            residue2 =contact.residue2
+            
+            
+            # ATOM 1
+            if residue1.name == 'GLY':
+                atom1 =residue1.CA 
+            else:
+                atom1 =residue1.CB 
 
-        return 0
+            # ATOM 2    
+            if residue2.name == 'GLY':
+                atom2 =residue2.CA 
+            else:
+                atom2 =residue2.CB 
+
+           
+            # get distance
+            distance = distance_ab (atom1, atom2)
+            
+            
+            
+            if distance <=  contact.cutoff:
+                if contact.type == 'C':
+                    energy_short += -10.0*contact.weight
+                
+                if contact.type == 'M':
+                    energy_medium += -10.0*contact.weight            
+                
+                if contact.type == 'L':
+                    energy_long += -10.0*contact.weight
+            
+            else:
+                pass
+        
+            #print (distance, energy_short, energy_medium, energy_long, residue1.name , residue2.name)
+             
+        
+        return  energy_short, energy_medium, energy_long  
     
    
     
@@ -182,21 +225,29 @@ class Energy:
     
     
     
-    def energy (self):
+    def energy (self, rw = True, cmap = True):
         """ Function doc """
 
         self.get_phi_psi_list()
-        e_rama = 0
+        #e_rama = 0
         #e_rama         = self.get_phi_psi_energy ()
-        e_ss_restraint = self.get_secondary_structure_restraint_energy()
+        #e_ss_restraint = self.get_secondary_structure_restraint_energy()
+        
+        self.current_energy = 0
+        if cmap:
+            energy_short, energy_medium, energy_long = self.get_contact_map_energy()
+            self.current_energy += energy_short +  energy_medium +  energy_long
+        
+        if rw:
+            e_RW  = self.get_calRW_energy()
+            self.current_energy += e_RW
 
-        e_contact_map  = self.get_contact_map_energy(None)
-
-        e_RW  = self.get_calRW_energy()
 
         #print (e_rama + e_ss_restraint + e_RW)
-        self.current_energy = e_rama + e_ss_restraint + e_RW + e_contact_map
-        return e_rama + e_ss_restraint + e_RW + e_contact_map
+        #self.current_energy = e_rama + e_ss_restraint + e_RW + e_contact_map
+        #return e_rama + e_ss_restraint + e_RW + e_contact_map
+        #self.current_energy = e_contact_map
+        return self.current_energy
         
         
     

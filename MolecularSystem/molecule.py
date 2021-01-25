@@ -381,7 +381,9 @@ class Molecule(#Atom       ,
 
         self.load_PDB_to_system(filename = pdb)
         self.fragments = []
-
+		
+        self.contacts  = []
+		
         #self.top      = None
         #self.psf      = None
         #self.param    = None
@@ -636,6 +638,34 @@ class Molecule(#Atom       ,
 		#
         #return initial_coordinates
         
+    def import_contact_map_from_file (self, filein  =  None, _type = 'labio', cutoff = 8.0):
+        """ Function doc """
+
+        filein  = open(filein, 'r')
+        
+        
+        for line in filein:
+            
+            line2 = line.split()
+            
+            if len(line2) == 5:
+                _type = line2[0]
+                resi1 = int(line2[1])
+                resi2 = int(line2[2])
+                    
+                residue1 = self.residues[resi1]
+                residue2 = self.residues[resi2]
+                
+                contact  =  Contact(residue1  = residue1 , 
+                                    residue2  = residue2 , 
+                                        _type = _type    , 
+                                       cutoff = cutoff   )
+                
+                self.contacts.append(contact)
+                print(line2)
+
+            else:
+                pass
 
 
 
@@ -644,28 +674,32 @@ class Molecule(#Atom       ,
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class Contact:
+	""" Class doc """
+	
+	def __init__ (self, residue1, residue2, _type = 'M', cutoff = 8.0):
+		""" Class initialiser """
+		
+		self.residue1 = residue1
+		self.residue2 = residue2
+		self.cutoff   = cutoff
+		self.type     = _type
+		self.weight   = 1.0
+		
+		
+		pass
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

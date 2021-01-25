@@ -14,7 +14,7 @@ import random as random
 import json
 
 #system     =  Molecule(pdb = '/home/fernando/programs/pepdice3/examples/1zdd.pdb')
-system     =  Molecule(pdb = '/home/fernando/programs/pepdice3/examples/1zdd_CB.pdb')
+system     =  Molecule(pdb = 'examples/1zdd_extended_structure_CB.pdb')
 
 
 
@@ -52,109 +52,23 @@ fragmentos = [
 .
 """
 
-
-
-
-
-
-'''
-fragments = []
-for i in range (0, len(system.residues) -5):
-	fragments.append([])
-'''
-
-
-'''
-for i in range (0, len(system.residues) -5):
-	fragment = get_fragment(molecule = system, size = 5, template_index = i, target_index = i )
-	fragments[i].append(fragment)
-'''
-
-
-
-'''
-system2     =  Molecule(pdb = '/home/fernando/programs/pepdice3/examples/native.pdb')
-for i in range (0, len(system.residues) -5):
-	fragment = get_fragment(molecule = system2, size = 5, template_index = i+10, target_index = i )
-	fragments[i].append(fragment)
-'''
-
-
-
-
-
-
-
-
-	
-	#variant = {}
-	#for index in fragment.keys():
-	#	
-	#	phi   = fragment[index]["PHI"]
-	#	if  phi:
-	#		phi   =+ random.random()
-	#	
-	#	psi   = fragment[index]["PSI"]
-	#	if psi:
-	#		psi   = random.random()
-	#	
-	#	
-	#	omega = fragment[index]["OMEGA"]
-	#	name  = fragment[index]["NAME"]
-	#	variant[index] ={
-	#	                 'NAME'  : name  ,
-	#	                 'PHI'   : phi   , 
-	#	                 'PSI'   : psi   ,
-	#	                 'OMEGA' : omega ,
-	#	                 }
-	#
-	#fragments[i].append(variant)
-
-
-
-
-fragments = json.load(open('examples/fragments.json'))
+# -----------------   importing fragments  ----------------------
+fragments = json.load(open('examples/fragments_1zdd_example.json'))
 pprint(fragments)
 system.fragments = fragments
-
-
-'''
-for residue  in system.residues:
-	residue.set_phi(180)
-	residue.set_psi(180)
-	residue.set_omega(180)
-
-	#print(system.residues[5].psi ,psi+i, system.energy())
-
-'''
-
-
-system.import_contact_map_from_file (filein  = '/home/fernando/programs/pepdice3/examples/pairProteinNative' )
-
-
+# ---------------------------------------------------------------
 pprint(system.fragments)
 
 
+# ----------------   importing Contacts  ------------------------
+system.import_contact_map_from_file (filein  = 'examples/1zdd_pairProteinNative_example' )
+
+# checking contacts 
 for contact in system.contacts:
 	print (contact.residue1.name, contact.residue1.id ,contact.residue2.name, contact.residue2.id )
+# ---------------------------------------------------------------
 
-#system.fragments[0] = [] 
-#system.fragments[1] = [] 
-#system.fragments[2] = [] 
-#system.fragments[3] = [] 
-#system.fragments[4] = [] 
-#system.fragments[5] = [] 
-#system.fragments[6] = [] 
-#system.fragments[7] = [] 
-#system.fragments[8] = [] 
-#system.fragments[9] = [] 
-#system.fragments[10] = [] 
-#system.fragments[11] = [] 
-#system.fragments[12] = [] 
-#system.fragments[13] = [] 
-#system.fragments[14] = [] 
 
-#'''
 
 monte_carlo_cycle (molecule            = system                   ,
 				   random              = None                   ,
