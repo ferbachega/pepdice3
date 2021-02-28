@@ -10,7 +10,11 @@ class Energy:
     def __init__ (self):
         """ Class initialiser """
         pass
-
+        #self.energy_components = {'e_cmap_short' : 0,
+        #                          'e_cmap_medium': 0,
+        #                          'e_cmap_long'  : 0,
+        #                          'e_RW'         : 0,
+        #                          }
 
     def read_calRW_logfile (self, logfile):
         """ Function doc """
@@ -25,8 +29,6 @@ class Energy:
         
         return energy
                 
-            
-
 
     def get_calRW_energy (self, theard_number = 0):
         """ Function doc """
@@ -46,10 +48,9 @@ class Energy:
         energy = self.read_calRW_logfile(tmp_log)
         
         os.chdir(current_directory)
-        
+        self.energy_components['e_RW' ] = float(energy)
         return float(energy)
 
-		
 
     def get_phi_psi_energy (self):
         """ Function doc 
@@ -85,7 +86,6 @@ class Energy:
         
         self.e_rama_total = e_rama_total
         return e_rama_total
-        
         
     
     def get_secondary_structure_restraint_energy (self, log = False):
@@ -160,15 +160,10 @@ class Energy:
         #print (total_energy)
         return total_energy        
     
-
-		
-    
     
     def get_distance_restraint_energy (self, log = False):
         """ Function doc """
         pass
-    
-    
     
     
     def get_contact_map_energy (self, cmap =  None):
@@ -216,15 +211,13 @@ class Energy:
         
             #print (distance, energy_short, energy_medium, energy_long, residue1.name , residue2.name)
              
-        
+        self.energy_components['e_cmap_short' ] = energy_short
+        self.energy_components['e_cmap_medium'] = energy_medium
+        self.energy_components['e_cmap_long'  ] = energy_long
+        self.energy_components['e_cmap_total' ] = energy_short +  energy_medium +  energy_long
         return  energy_short, energy_medium, energy_long  
     
-   
-    
-    
-    
-    
-    
+ 
     def energy (self, rw = True, cmap = True):
         """ Function doc """
 
@@ -234,15 +227,19 @@ class Energy:
         #e_ss_restraint = self.get_secondary_structure_restraint_energy()
         
         self.current_energy = 0
+        
         if cmap:
             energy_short, energy_medium, energy_long = self.get_contact_map_energy()
             self.current_energy += energy_short +  energy_medium +  energy_long
+        
         
         if rw:
             e_RW  = self.get_calRW_energy()
             self.current_energy += e_RW
 
-
+        #for energy_term in self.energy_components:
+        #    print(energy_term, self.energy_components[energy_term])
+			
         #print (e_rama + e_ss_restraint + e_RW)
         #self.current_energy = e_rama + e_ss_restraint + e_RW + e_contact_map
         #return e_rama + e_ss_restraint + e_RW + e_contact_map

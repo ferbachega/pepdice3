@@ -366,11 +366,11 @@ class Molecule(#Atom       ,
     """
 
     def __init__(self, 
-                 id   = 0,
-                 name = 'protein',
-                 pdb  = None,
+                 id      = 0,
+                 name    = 'protein',
+                 pdb     = None,
                  rw_path = None,
-                 
+                 info    = False, 
                  ):
                      
         self.id       = id
@@ -470,7 +470,11 @@ class Molecule(#Atom       ,
             self.RW_PATH = rw_path
         
         self.current_energy = 0
-        
+        self.energy_components = {'e_cmap_short' : 0,
+                                  'e_cmap_medium': 0,
+                                  'e_cmap_long'  : 0,
+                                  'e_RW'         : 0,
+                                  }
         
         
     def get_phi_psi_list (self):
@@ -576,7 +580,7 @@ class Molecule(#Atom       ,
 
         self.residues.append(residue)
         
-
+        '''
         for residue in self.residues:
             residue.build_atoms_dic()
             
@@ -598,7 +602,7 @@ class Molecule(#Atom       ,
                         
                     else:
                         print (residue.id, residue.resi,atom.resi, atom.resn,  atom.name, atom.pos)
-                
+        '''
  
     def import_coordinates_to_system(self, coordinates):
         """ Function doc """
@@ -650,9 +654,11 @@ class Molecule(#Atom       ,
             
             if len(line2) == 5:
                 _type = line2[0]
-                resi1 = int(line2[1])
-                resi2 = int(line2[2])
-                    
+                resi1 = int(line2[1])-1
+                resi2 = int(line2[2])-1
+                #print(len(self.residues))    
+                #print(resi1)    
+                #print(resi2)    
                 residue1 = self.residues[resi1]
                 residue2 = self.residues[resi2]
                 
@@ -662,10 +668,19 @@ class Molecule(#Atom       ,
                                        cutoff = cutoff   )
                 
                 self.contacts.append(contact)
-                print(line2)
+                #print(line2)
 
             else:
                 pass
+    
+    
+    def summary (table = False):
+        """ Function doc """
+        number_of_residues =  len(self.resdidues)
+        number_of_atoms    =  len(self.atoms)
+        print ('number_of_residues:' , number_of_residues)
+        print ('number_of_atoms:'    , number_of_atoms   )
+        
 
 
 
